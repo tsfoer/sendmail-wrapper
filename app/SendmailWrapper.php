@@ -112,15 +112,15 @@ class SendmailWrapper extends StdinMailParser
         }
 
         // message logging to syslog
-        $syslogMsg = sprintf('%s: uid=%s, msgid=%s, from=%s, to="%s", cc="%s", bcc="%s", subject="%s", site=%s, client=%s, script=%s, throttleStatus=%s',
+        $syslogMsg = sprintf('%s: uid="%s", msgid="%s", from="%s", to="%s", cc="%s", bcc="%s", subject="%s", site="%s", client="%s", script="%s", throttleStatus="%s"',
             $this->_conf->wrapper->syslogPrefix,
-            $messageInfo['uid'],
-            $messageInfo['msgid'],
-            $messageInfo['from'],
+            trim($messageInfo['uid']),
+            trim($messageInfo['msgid']),
+            trim($messageInfo['from']),
             $this->stripStrLength($messageInfo['to']),
             $this->stripStrLength($messageInfo['cc']),
             $this->stripStrLength($messageInfo['bcc']),
-            $messageInfo['subject'],
+            addslashes($messageInfo['subject']),
             $messageInfo['site'],
             $messageInfo['client'],
             $messageInfo['script'],
